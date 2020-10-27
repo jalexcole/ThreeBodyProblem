@@ -6,31 +6,13 @@ public class Main {
     final double gravitationConstant = 6.6743015e-11;
 
     public static void main(String[] args) {
-        Main problem = new Main();
-        problem.initBodies(3);
-        System.out.printf("");
+        BodySystem system = new BodySystem(20000);
+        int maxStepsSize = 10000;
+        int stepCount = 0;
 
-
-    }
-    public void initBodies(int count){
-        IntStream.range(0, count).forEach(n ->{
-            bodies.add(new Body());
-        });
-    }
-
-    public void gravitationalForce(Body selectedBody) {
-        
-        for (Body body : bodies) {
-
+        while(stepCount < maxStepsSize){
+            system.step();
+            stepCount++;
         }
     }
-    public double calculateDistance (Body body1, Body body2) {
-        double dx = body1.getPosition()[0] - body2.getPosition()[0];
-        double dy = body1.getPosition()[1] - body2.getPosition()[1];
-        double dz = body1.getPosition()[2] - body2.getPosition()[2];
-        double distance = Math.sqrt(Math.pow(dx,2) + Math.pow(dy, 2) + Math.pow(dz, 2));
-
-        return distance;
-    }
-
 }
