@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Numeric {
 
     public static double[] addVectors(double[] vector1, double[] vector2){
@@ -46,5 +48,13 @@ public class Numeric {
             sum += v;
         }
         return sum;
+    }
+
+    public static double[] randomVector(int length){
+        double[] vector = new double[length];
+        for(int i = 0; i < length; i++){
+            vector[i] = new Random().nextDouble();
+        }
+        return vector;
     }
 }
