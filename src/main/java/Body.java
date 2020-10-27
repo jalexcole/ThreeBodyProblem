@@ -33,22 +33,15 @@ class Body {
         updateVelocity();
     }
     private void updatePosition() {
-        for(int i = 0; i < position.length; i++){
-            position[i] += velocity[i];
-        }
+        position = Numeric.addVectors(position, velocity);
     }
 
     private void updateVelocity() {
-        velocity[0] += acceleration[0];
-        velocity[1] += acceleration[1];
-        velocity[2] += acceleration[2];
+        velocity = Numeric.addVectors(velocity, acceleration);
     }
 
     public void applyForce(double[] force) {
-        acceleration[0] = force[0] / mass;
-        acceleration[1] = force[1] / mass;
-        acceleration[2] = force[2] / mass;
-
+        acceleration = Numeric.divide(force, mass);
     }
     public void setNonAttracting(){
         attracting = false;
@@ -58,6 +51,11 @@ class Body {
     }
     public double getMass(){
         return mass;
+    }
+
+    public double[] getMomentum(){
+
+        return null;
     }
 
 }

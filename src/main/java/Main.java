@@ -5,7 +5,7 @@ public class Main {
 
     public static void main(String[] args) {
         BodySystem system = new BodySystem(20000);
-        int maxStepsSize = 10000;
+        int maxStepsSize = 10;
         int stepCount = 0;
 
         while(stepCount < maxStepsSize){

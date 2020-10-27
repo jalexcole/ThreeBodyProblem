@@ -50,12 +50,11 @@ public class BodySystem {
     }
 
     public double calculateDistance (Body body1, Body body2) {
-        double dx = body1.getPosition()[0] - body2.getPosition()[0];
-        double dy = body1.getPosition()[1] - body2.getPosition()[1];
-        double dz = body1.getPosition()[2] - body2.getPosition()[2];
-        double distance = Math.sqrt(Math.pow(dx,2) + Math.pow(dy, 2) + Math.pow(dz, 2));
+        double distance[] = Numeric.subtractVectors(body1.getPosition(), body2.getPosition());
+        distance = Numeric.powVector(distance, 2);
 
-        return distance;
+        return Math.sqrt(Numeric.sumVector(distance));
+
     }
 
     public double[] totalForceVector(Body myBody){
@@ -79,6 +78,10 @@ public class BodySystem {
                     / Math.pow(calculateDistance(body1, body2), 2);
         }
         return force;
+    }
+
+    public void collision(){
+
     }
 
     public double getAverageSystemSize(){
