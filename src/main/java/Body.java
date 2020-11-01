@@ -15,6 +15,8 @@ class Body {
     private boolean attracting = true;
 
     Random random = new Random();
+    
+    private int stepSize = 1;
 
     public Body() {
         init();
@@ -33,8 +35,24 @@ class Body {
         updateVelocity();
     }
     private void updatePosition() {
-        position = Numeric.addVectors(position, velocity);
+        position = calculatePosition();
     }
+
+    public double[] calculatePosition(){
+        double[] futureVelocity = Numeric.addVectors(velocity, Numeric.mulVector(acceleration, stepSize));
+        futureVelocity = Numeric.mulVector(futureVelocity, stepSize);
+        double[] futurePosition = Numeric.addVectors(position, futureVelocity);
+        futurePosition = Numeric.addVectors(futurePosition, Numeric.mulVector(acceleration, Math.pow(stepSize, 2)));
+        return futurePosition;
+    }
+    public double[] calculatePosition(double partialStep){
+        double[] futureVelocity = Numeric.addVectors(velocity, Numeric.mulVector(acceleration, stepSize * partialStep));
+        futureVelocity = Numeric.mulVector(futureVelocity, stepSize * partialStep);
+        double[] futurePosition = Numeric.addVectors(position, futureVelocity);
+        futurePosition = Numeric.addVectors(futurePosition, Numeric.mulVector(acceleration, Math.pow(stepSize * partialStep, 2)));
+        return futurePosition;
+    }
+
 
     private void updateVelocity() {
         velocity = Numeric.addVectors(velocity, acceleration);
