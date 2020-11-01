@@ -1,10 +1,11 @@
-import java.util.ArrayList;
-import java.util.stream.IntStream;
-
 public class Main {
 
     public static void main(String[] args) {
-        BodySystem system = new BodySystem(20000);
+        BodySystem system = new BodySystem.Builder()
+                .setCountAttractingBodies(3)
+                .setScaleModifier(5)
+                .build();
+
         int maxStepsSize = 10;
         int stepCount = 0;
 
