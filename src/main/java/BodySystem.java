@@ -3,17 +3,19 @@ import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class BodySystem {
-    ArrayList<Body> attractingBodies = new ArrayList<>();
-    ArrayList<Body> bodies = new ArrayList<>();
+    private ArrayList<Body> attractingBodies = new ArrayList<>();
+    private ArrayList<Body> bodies = new ArrayList<>();
 
-    final double gravitationConstant = 6.6743015e-11;
+    private final double gravitationConstant = 6.6743015e-11;
 
-    int countAttractingBodies = 3;
-    int nonAttractingCount = 0;
+    private int countAttractingBodies = 3;
+    private int nonAttractingCount = 0;
 
-    double stepSize = 1;
-    int dimensionality = 3;
-    double scaleModifier = 1;
+    private double stepSize = 1; // in Seconds
+    private int dimensionality = 3;
+    private double scaleModifier = 1;
+
+    private int threadPool = Runtime.getRuntime().availableProcessors();
 
     static class Builder {
         private double stepSize = 1 ;
@@ -66,15 +68,22 @@ public class BodySystem {
     }
 
     public void init(){
-        IntStream.range(0, countAttractingBodies).forEach(n -> {
-            attractingBodies.add(new Body(dimensionality));
-            attractingBodies.get(n).setStepSize(stepSize);
+        IntStream.range(0, countAttractingBodies).parallel().forEach(n -> {
+            Body body = new Body.Builder()
+                    .setDimensionality(dimensionality)
+                    .setStepSize(stepSize)
+                    .build();
+            attractingBodies.add(body);
         });
 
         IntStream.range(0, nonAttractingCount).forEach(n -> {
-            bodies.add(new Body(dimensionality));
-            bodies.get(n).setStepSize(stepSize);
-            bodies.get(n).setNonAttracting();
+            Body body = new Body.Builder()
+                    .setDimensionality(dimensionality)
+                    .setAttracting(false)
+                    .setStepSize(stepSize)
+                    .build();
+            bodies.add(body);
+
         });
     }
 
@@ -97,11 +106,12 @@ public class BodySystem {
 
     public void step() {
         /* Steps the system through each frame for all bodies in the system */
-        IntStream.range(0, attractingBodies.size()).forEach(n -> {
+
+        IntStream.range(0, attractingBodies.size()).parallel().forEach(n -> {
             attractingBodies.get(n).applyForce(totalForceVector(attractingBodies.get(n)));
         });
 
-        IntStream.range(0, bodies.size()).forEach(n -> {
+        IntStream.range(0, bodies.size()).parallel().forEach(n -> {
             bodies.get(n).applyForce(totalForceVector(bodies.get(n)));
         });
 
@@ -147,7 +157,17 @@ public class BodySystem {
     }
 
     public void collision() {
+        /* Checks if two objects collide.
+           runs if objects are near each other
+           Governs rules of collision
+           Larger objects is to acquire the mass
+           Objects will be made of the same material
+           Objects will be given unique names
+           Collision will add to an objects collision log existing of names and where objects
+           collided.
+           collision will add the mass & momentum and recalculate current velocity.
 
+         */
     }
 
 

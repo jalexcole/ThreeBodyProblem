@@ -14,33 +14,51 @@ class Body {
     protected double[] velocity = new double[dimensionality];
     protected double[] acceleration = new double[dimensionality];
     protected double mass;
+    private double radii = 1; // in meters
 
     private double modifier = 1;
     private boolean attracting = true;
     private double stepSize = 1;
 
+
     private Random random = new Random();
 
     static class Builder {
         private Random random = new Random();
-        private int dimensionality;
-        private double modifier;
-        private double stepSize;
+        private int dimensionality = 3;
+        private double modifier = 1;
+        private double stepSize = 1;
+        private boolean attracting = true;
+        private double radii = 1;
 
-        public void setRandom(Random random) {
+        public Builder setRadii(double radii){
+            this.radii = radii;
+            return this;
+        }
+
+        public Builder setRandom(Random random) {
             this.random = random;
+            return this;
         }
 
-        public void setDimensionality(int dimensionality) {
+        public Builder setDimensionality(int dimensionality) {
             this.dimensionality = dimensionality;
+            return this;
         }
 
-        public void setModifier(double modifier) {
+        public Builder setModifier(double modifier) {
             this.modifier = modifier;
+            return this;
         }
 
-        public void setStepSize(double stepSize) {
+        public Builder setStepSize(double stepSize) {
             this.stepSize = stepSize;
+            return this;
+        }
+
+        public Builder setAttracting(boolean attracting) {
+            this.attracting = attracting;
+            return this;
         }
 
         public Body build(){
@@ -52,7 +70,7 @@ class Body {
         this.random = builder.random;
         this.dimensionality = builder.dimensionality;
         this.modifier = builder.modifier;
-        this.stepSize =builder.stepSize;
+        this.stepSize = builder.stepSize;
         init();
     }
 
@@ -89,10 +107,10 @@ class Body {
         /*
          * This function is for the use of Euler's method for solving the differential equation.
          */
+        //
         double[] futureVelocity = Numeric.addVectors(velocity, Numeric.mulVector(acceleration, stepSize));
         futureVelocity = Numeric.mulVector(futureVelocity, stepSize);
         double[] futurePosition = Numeric.addVectors(position, futureVelocity);
-        futurePosition = Numeric.addVectors(futurePosition, Numeric.mulVector(acceleration, Math.pow(stepSize, 2)));
         return futurePosition;
     }
 
@@ -100,7 +118,6 @@ class Body {
         double[] futureVelocity = Numeric.addVectors(velocity, Numeric.mulVector(acceleration, stepSize * partialStep));
         futureVelocity = Numeric.mulVector(futureVelocity, stepSize * partialStep);
         double[] futurePosition = Numeric.addVectors(position, futureVelocity);
-        futurePosition = Numeric.addVectors(futurePosition, Numeric.mulVector(acceleration, Math.pow(stepSize * partialStep, 2)));
         return futurePosition;
     }
 
@@ -131,10 +148,6 @@ class Body {
 
     public double[] getAcceleration() {
         return acceleration;
-    }
-
-    public void setDimensionality(int dimensionality) {
-        this.dimensionality = dimensionality;
     }
 
     public double[] getMomentum() {

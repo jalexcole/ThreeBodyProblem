@@ -1,3 +1,5 @@
+
+
 import java.util.Random;
 
 public class Numeric {
@@ -18,6 +20,13 @@ public class Numeric {
             totalVector[i] = vector1[i] - vector2[i];
         }
         return totalVector;
+    }
+
+    public static  double[] mulVector(double[] vector1, double value){
+        for(int i = 0; i < vector1.length; i++){
+            vector1[i] *= value;
+        }
+        return vector1;
     }
 
     public static double[] sqrtVector(double[] vector){
