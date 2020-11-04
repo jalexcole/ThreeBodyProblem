@@ -1,17 +1,19 @@
-
-
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Numeric {
     double[] numericVector;
+
+    public double[] getNumericVector(){
+        return numericVector;
+    }
+
 
     public void array(double[] vector){
         numericVector = (double[])vector;
     }
 
     public void linspace(double start, double stop, int steps){
-        double stepSize = (stop - start) / ((double)steps - 1);
+        double stepSize = (stop - start) / ((double)steps - 1.0);
         double[] vector = new double[steps];
         vector[0] = start;
 
@@ -20,6 +22,64 @@ public class Numeric {
         }
 
         numericVector = vector;
+    }
+
+    public void random(int length){
+        Random random = new Random();
+        numericVector = new double[length];
+        for(double i: numericVector) i = random.nextDouble();
+    }
+
+    public void zeros(int length){
+        numericVector = new double[length];
+        for(double i: numericVector) i = 0;
+    }
+
+    public void multiply(double value){
+        for(int i = 0; i < numericVector.length; i++){
+            numericVector[i] *= value;
+        }
+    }
+
+    public void multiply(double[] vector){
+        if(checkLength(numericVector, vector)){
+            for(int i = 0; i < numericVector.length; i++){
+                numericVector[i] *= vector[i];
+            }
+        }
+    }
+
+    public double dot(double[] vector){
+        double[] dotVector;
+        if(checkLength(numericVector, vector)){
+            dotVector = new double[numericVector.length];
+            for(int i = 0; i < numericVector.length; i++){
+                dotVector[i] = numericVector[i] * vector[i];
+            }
+            return sumVector(dotVector);
+        } else {
+            return 0;
+        }
+
+    }
+
+    public void cross(double[] vector){
+
+    }
+
+    public void pow(double value){
+        for(double i: numericVector){
+            Math.pow(i, value);
+        }
+    }
+
+    public boolean checkLength(double[] vector1, double[] vector2){
+        if(vector1.length != vector2.length){
+            System.err.println("Vector array size mismatch");
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public static double[] addVectors(double[] vector1, double[] vector2){
