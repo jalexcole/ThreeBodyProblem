@@ -3,7 +3,7 @@ import java.util.Random;
 public class Numeric {
     double[] numericVector;
 
-    public double[] getNumericVector(){
+    public double[] getVector(){
         return numericVector;
     }
 
