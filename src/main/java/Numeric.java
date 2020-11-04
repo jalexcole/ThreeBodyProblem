@@ -1,8 +1,26 @@
 
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Numeric {
+    double[] numericVector;
+
+    public void array(double[] vector){
+        numericVector = (double[])vector;
+    }
+
+    public void linspace(double start, double stop, int steps){
+        double stepSize = (stop - start) / ((double)steps - 1);
+        double[] vector = new double[steps];
+        vector[0] = start;
+
+        for(int i = 1; i < steps; i++){
+            vector[i] = vector[i - 1] + stepSize;
+        }
+
+        numericVector = vector;
+    }
 
     public static double[] addVectors(double[] vector1, double[] vector2){
         double[] totalVector = new double[(vector1.length + vector2.length) / 2];
