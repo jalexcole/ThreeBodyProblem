@@ -7,12 +7,15 @@ plugins {
 mainClassName = 'Main'
 
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+group 'org.cole'
+// version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
     jcenter()
+}
+jar{
+    baseName("Nbody")
 }
 
 dependencies {

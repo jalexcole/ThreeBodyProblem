@@ -1,4 +1,5 @@
 import java.sql.*;
+import com.google.gson.*;
 
 public class Simulation {
     /**
@@ -10,6 +11,12 @@ public class Simulation {
      * and then load results back into the .db file.
      *
      * The Simulation class will also act as a state machine to govern frame times.*/
+    public static void main(String[] args) {
+        Simulation simulation = new Simulation();
+
+
+    }
+
 
     public Simulation(){
 
@@ -19,17 +26,15 @@ public class Simulation {
 
     }
 
-    public static void main(String[] args) {
-        String filetype = args[0].substring(args[0].lastIndexOf(".") + 1);
+
+
+    public void checkFileType(String word){
+        String filetype = word.substring(word.lastIndexOf(".") + 1);
         if(filetype.equals("json")){
 
         } else if(filetype.equals("db")){
 
         }
-    }
-
-    public void checkFileType(String word){
-
     }
 
 

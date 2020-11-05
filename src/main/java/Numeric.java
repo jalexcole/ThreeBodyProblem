@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class Numeric {
-    double[] numericVector;
+    protected double[] numericVector;
 
     public double[] getVector(){
         return numericVector;
@@ -67,11 +67,47 @@ public class Numeric {
 
     }
 
+
+
+
+
     public void pow(double value){
         for(double i: numericVector){
             Math.pow(i, value);
         }
     }
+
+    public void array(Numeric numeric){
+        numericVector = (double[])numeric.getVector();
+    }
+
+
+    public void multiply(Numeric numeric){
+        if(checkLength(numericVector, numeric.getVector())){
+            for(int i = 0; i < numericVector.length; i++){
+                numericVector[i] *= numeric.getVector()[i];
+            }
+        }
+    }
+
+    public double dot(Numeric numeric){
+        double[] dotVector;
+        if(checkLength(numericVector, numeric.getVector())){
+            dotVector = new double[numericVector.length];
+            for(int i = 0; i < numericVector.length; i++){
+                dotVector[i] = numericVector[i] * numeric.getVector()[i];
+            }
+            return sumVector(dotVector);
+        } else {
+            return 0;
+        }
+
+    }
+
+    public void cross(Numeric numeric){
+
+    }
+
 
     public boolean checkLength(double[] vector1, double[] vector2){
         if(vector1.length != vector2.length){
