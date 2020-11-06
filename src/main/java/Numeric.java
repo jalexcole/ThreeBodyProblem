@@ -12,7 +12,7 @@ public class Numeric {
     }
 
     Numeric(double[] vector){
-        array(vector);
+        numericVector = vector;
     }
 
     public double[] getVector(){
@@ -24,7 +24,7 @@ public class Numeric {
     }
 
 
-    public void linspace(double start, double stop, int steps){
+    public static Numeric linspace(double start, double stop, int steps){
         double stepSize = (stop - start) / ((double)steps - 1.0);
         double[] vector = new double[steps];
         vector[0] = start;
@@ -33,10 +33,10 @@ public class Numeric {
             vector[i] = vector[i - 1] + stepSize;
         }
 
-        numericVector = vector;
+        return new Numeric(vector);
     }
 
-    public void linspace(double start, double stop){
+    public static Numeric linspace(double start, double stop){
         int steps = 100;
 
         double stepSize = (stop - start) / ((double)steps - 1.0);
@@ -47,7 +47,7 @@ public class Numeric {
             vector[i] = vector[i - 1] + stepSize;
         }
 
-        numericVector = vector;
+        return new Numeric(vector);
     }
 
 

@@ -20,6 +20,10 @@ public class NumericTest {
 
     @Test
     public void linspace() {
+        Numeric time = new Numeric().linspace(0, 1);
+
+
+        assertTrue(time.getVector().length == 100);
     }
 
     @Test
@@ -54,9 +58,6 @@ public class NumericTest {
     public void testArray() {
     }
 
-    @Test
-    public void testMultiply1() {
-    }
 
     @Test
     public void testDot() {
