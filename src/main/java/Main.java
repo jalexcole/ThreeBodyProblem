@@ -1,6 +1,10 @@
 public class Main {
 
     public static void main(String[] args) {
+        Main.oldSimulation();
+    }
+
+    public static void oldSimulation(){
         BodySystem system = new BodySystem.Builder()
                 .setCountAttractingBodies(300)
                 .setScaleModifier(5)
@@ -14,4 +18,6 @@ public class Main {
             stepCount++;
         }
     }
+
+
 }

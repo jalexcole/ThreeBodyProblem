@@ -1,16 +1,28 @@
 import java.util.Random;
 
 public class Numeric {
+    public void setNumericVector(double[] numericVector) {
+        this.numericVector = numericVector;
+    }
+
     protected double[] numericVector;
+
+    Numeric(){
+
+    }
+
+    Numeric(double[] vector){
+        array(vector);
+    }
 
     public double[] getVector(){
         return numericVector;
     }
 
-
-    public void array(double[] vector){
-        numericVector = (double[])vector;
+    public static Numeric array(double[] vector){
+        return new Numeric(vector);
     }
+
 
     public void linspace(double start, double stop, int steps){
         double stepSize = (stop - start) / ((double)steps - 1.0);
@@ -24,7 +36,28 @@ public class Numeric {
         numericVector = vector;
     }
 
+    public void linspace(double start, double stop){
+        int steps = 100;
+
+        double stepSize = (stop - start) / ((double)steps - 1.0);
+        double[] vector = new double[steps];
+        vector[0] = start;
+
+        for(int i = 1; i < steps; i++){
+            vector[i] = vector[i - 1] + stepSize;
+        }
+
+        numericVector = vector;
+    }
+
+
+
     public void random(int length){
+        long remainingRam = Runtime.getRuntime().freeMemory();
+        long vectorSize = length * 4;
+        if(vectorSize > remainingRam)
+            System.err.println("Vector exceed memory size.");
+
         Random random = new Random();
         numericVector = new double[length];
         for(double i: numericVector) i = random.nextDouble();
@@ -66,10 +99,6 @@ public class Numeric {
     public void cross(double[] vector){
 
     }
-
-
-
-
 
     public void pow(double value){
         for(double i: numericVector){

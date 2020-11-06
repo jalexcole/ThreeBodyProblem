@@ -11,11 +11,7 @@ public class Simulation {
      * and then load results back into the .db file.
      *
      * The Simulation class will also act as a state machine to govern frame times.*/
-    public static void main(String[] args) {
-        Simulation simulation = new Simulation();
 
-
-    }
 
 
     public Simulation(){
