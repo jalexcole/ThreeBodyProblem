@@ -4,17 +4,33 @@ import java.util.Arrays;
 
 public class Worker implements Runnable{
     ArrayList<Body> bodies = new ArrayList<>();
-
     ArrayList<Body> workerBodies = new ArrayList<>();
+    Integer[] attractingIndex;
     int startIndex;
     int stopIndex;
     int frame;
 
     private final double gravitationConstant = 6.6743015e-11;
 
+    public Worker(){
+
+    }
+
     @Override
     public void run() {
 
+    }
+
+    private void indexAttractingBodies(){
+        ArrayList<Integer> indexes = new ArrayList<>();
+
+        for(int i = 0; i < bodies.size(); i++){
+            if(bodies.get(i).getAttracting()){
+                indexes.add(i);
+            }
+        }
+
+        this.attractingIndex = indexes.toArray(new Integer[0]);
     }
 
     public double calculateDistance(Body body1, Body body2) {

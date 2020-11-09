@@ -13,6 +13,9 @@ class Body {
     // Set as public due to outside use
     protected double[] velocity = new double[dimensionality];
     protected double[] acceleration = new double[dimensionality];
+
+    // Holding values for updated position
+
     protected double mass;
     private double radii = 1; // in meters
 
@@ -160,6 +163,10 @@ class Body {
 
     public void setModifier(double modifier) {
         this.modifier = modifier;
+    }
+
+    public boolean  getAttracting(){
+        return attracting;
     }
 
 }
